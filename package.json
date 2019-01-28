@@ -1,0 +1,10 @@
+{
+  "name": "advanced-nodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "demon-monk <antdude@126.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
