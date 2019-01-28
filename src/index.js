@@ -1,5 +1,3 @@
-process.env.UV_THREADPOOL_SIZE = 1;
-const cluster = require("cluster");
 const crypto = require("crypto");
 
 function doWork(fn) {
@@ -8,25 +6,14 @@ function doWork(fn) {
   });
 }
 
-if (cluster.isMaster) {
-  cluster.fork();
-  cluster.fork();
-  cluster.fork();
-  cluster.fork();
-  cluster.fork();
-  cluster.fork();
-  cluster.fork();
-  cluster.fork();
-} else {
-  const express = require("express");
-  const app = express();
-  app.get("/", (req, res) => {
-    doWork(() => {
-      res.send("Hi there!");
-    });
+const express = require("express");
+const app = express();
+app.get("/", (req, res) => {
+  doWork(() => {
+    res.send("Hi there!");
   });
-  app.get("/fast", (req, res) => {
-    res.send("this is fast");
-  });
-  app.listen(3000);
-}
+});
+app.get("/fast", (req, res) => {
+  res.send("this is fast");
+});
+app.listen(3000);
